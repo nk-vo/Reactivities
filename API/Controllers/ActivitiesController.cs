@@ -21,12 +21,7 @@ namespace API.Controllers
         [HttpGet("{id}")] //api/activities/id
         public async Task<ActionResult<Domain.Activity>> GetActivity(Guid id)
         {
-            return Ok();
-        }
-
-        private ActionResult<Domain.Activity> Ok()
-        {
-            throw new NotImplementedException();
+            return await Mediator.Send(new Details.Query { Id = id });
         }
     }
 }
