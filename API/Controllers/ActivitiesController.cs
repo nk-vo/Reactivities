@@ -15,7 +15,7 @@ namespace API.Controllers
         private readonly IMediator _mediator; // Change to IMediator
         public ActivitiesController(IMediator mediator) // Add parameter name for IMediator
         {
-            
+            _mediator = mediator; // Change to _mediator
         }
 
         [HttpGet] //api/activities
