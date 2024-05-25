@@ -30,7 +30,12 @@ export default function ActivityList({ activities, selectActivity, deleteActivit
                 <div>{activity.city}, {activity.venue}</div>
               </Item.Description>
               <Item.Extra>
-                <Button onClick={() => selectActivity(activity.id)} floated='right' content='View' color='blue' />
+                <Button
+                  onClick={() => selectActivity(activity.id)}
+                  floated='right'
+                  content='View'
+                  color='blue'
+                />
                 <Button
                   name={activity.id}
                   loading={submitting && target === activity.id}
