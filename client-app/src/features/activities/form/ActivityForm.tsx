@@ -3,7 +3,6 @@ import { ChangeEvent, useState } from "react";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
 
-
 export default observer(function ActivityForm() {
   const { activityStore } = useStore();
   const { selectedActivity, closeForm, createActivity, updateActivity, loading } = activityStore;
