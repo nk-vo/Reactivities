@@ -19,12 +19,12 @@ export const routes: RouteObject[] = [
         element: <ActivityDashboard />,
       },
       {
-        path: "/createActivity",
-        element: <ActivityForm />,
-      },
-      {
         path: "/activities/:id",
         element: <ActivityDetails />,
+      },
+      {
+        path: "/createActivity",
+        element: <ActivityForm />,
       },
       {
         path: "/errors",
