@@ -9,6 +9,13 @@ export default class ActivityStore {
   editMode = false
   loading = false
   loadingInitial = false
+  predicate = new Map().set('all', true);
+  setPredicate = (predicate: string, value: string | Date) => {
+    this.predicate.clear();
+    if (predicate !== 'all') {
+      this.predicate.set(predicate, value);
+    }
+  }
 
   constructor() {
     makeAutoObservable(this);
