@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Item, Button, Label } from "semantic-ui-react";
+import { Item, Button, Segment, Icon } from "semantic-ui-react";
 import { Activity } from "../../../app/models/Activity";
 import { useState, SyntheticEvent } from "react";
 import { useStore } from "../../../app/stores/store";
@@ -21,33 +21,57 @@ export default function ActivityListItem({ activity }: Props) {
   }
 
   return (
-    <Item key={activity.id}>
-      <Item.Content>
-        <Item.Header as='a'>{activity.title}</Item.Header>
-        <Item.Meta>{activity.date}</Item.Meta>
-        <Item.Description>
-          <div>{activity.description}</div>
-          <div>{activity.city}, {activity.venue}</div>
-        </Item.Description>
-        <Item.Extra>
-          <Button
-            as={Link}
-            to={`/activities/${activity.id}`}
-            floated='right'
-            content='View'
-            color='blue'
-          />
-          <Button
-            name={activity.id}
-            loading={loading && target === activity.id}
-            onClick={(e) => handleActivityDelete(e, activity.id)}
-            floated='right'
-            content='Delete'
-            color='red'
-          />
-          <Label basic content={activity.category} />
-        </Item.Extra>
-      </Item.Content>
-    </Item>
+    <Segment.Group>
+      <Segment>
+        <Item.Group>
+          <Item>
+            <Item.Image size='tiny' circular src='/assets/user.png' />
+            <Item.Content>
+              <Item.Header as={Link} to={`/activities/${activity.id}`}>{activity.title}</Item.Header>
+              <Item.Description>Hosted by Bob</Item.Description>
+              {/* {activity.isHost &&
+                <Item.Description>
+                  <Label basic color='orange'>
+                    You are hosting this activity
+                  </Label>
+                </Item.Description>}
+              {activity.isGoing && !activity.isHost &&
+                <Item.Description>
+                  <Label basic color='green'>
+                    You are going to this activity
+                  </Label>
+                </Item.Description>} */}
+            </Item.Content>
+          </Item>
+        </Item.Group>
+      </Segment>
+      <Segment>
+        <span>
+          <Icon name='clock' /> {activity.date}
+          <Icon name='marker' /> {activity.venue}
+        </span>
+      </Segment>
+      <Segment secondary>
+        Attendees go here
+      </Segment>
+      <Segment clearing>
+        <span>{activity.description}</span>
+        <Button
+          as={Link}
+          to={`/activities/${activity.id}`}
+          color='teal'
+          floated='right'
+          content='View'
+        />
+        <Button
+          name={activity.id}
+          loading={loading && target === activity.id}
+          onClick={(e) => handleActivityDelete(e, activity.id)}
+          color='red'
+          floated='right'
+          content='Delete'
+        />
+      </Segment>
+    </Segment.Group>
   )
 }
