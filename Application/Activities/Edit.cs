@@ -16,6 +16,14 @@ namespace Application.Activities
             public Activity Activity { get; set; }
         }
 
+        public class EditValidator : AbstractValidator<Command>
+        {
+            public EditValidator()
+            {
+                RuleFor(x => x.Activity).SetValidator(new ActivityValidator());
+            }
+        }
+
         public class Handler : IRequestHandler<Command>
         {
             private readonly DataContext _context;
