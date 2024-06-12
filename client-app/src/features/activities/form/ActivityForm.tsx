@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react-lite';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Button, FormField, Label, Segment } from "semantic-ui-react";
+import { Button, Segment } from "semantic-ui-react";
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { useStore } from '../../../app/stores/store';
-import { v4 as uuid } from 'uuid';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import MyTextInput from '../../../app/common/form/MyTextInput';
 
 export default observer(function ActivityForm() {
     const { activityStore } = useStore();
@@ -64,19 +64,13 @@ export default observer(function ActivityForm() {
             >
                 {({ handleSubmit }) => (
                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-                        <FormField>
-                            <Field placeholder='Title' name='title' />
-                            <ErrorMessage
-                                name='title'
-                                render={error => <Label style={{ marginBottom: 10 }} basic color='red' content={error} />}
-                            />
-                        </FormField>
-                        <Field placeholder='Title' name='title' />
-                        <Field placeholder='Description' name='description' />
-                        <Field placeholder='Category' name='category' />
-                        <Field type='date' placeholder='Date' name='date' />
-                        <Field placeholder='City' name='city' />
-                        <Field placeholder='Venue' name='venue' />
+                        <MyTextInput placeholder='Title' name='title' />
+                        <MyTextInput placeholder='Description' name='description' />
+                        <MyTextInput placeholder='Category' name='category' />
+                        <MyTextInput placeholder='Date' name='date' />
+                        <MyTextInput placeholder='City' name='city' />
+                        <MyTextInput placeholder='Venue' name='venue' />
+                        <Button loading={loading} floated='right' positive type='submit' content='Submit' />
                         <Button as={Link} to='/activities' floated='right' type='button' content='Cancel' />
                     </Form>
                 )}
