@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Header, Segment, Image } from "semantic-ui-react";
 import { useStore } from '../../app/stores/store';
 import { observer } from 'mobx-react-lite';
+import LoginForm from '../users/LoginForm';
 
 export default observer(function HomePage() {
-  const { userStore } = useStore();
+  const { userStore, modalStore } = useStore();
 
   return (
     <Segment inverted textAlign='center' vertical className='masthead' >
@@ -23,16 +24,14 @@ export default observer(function HomePage() {
           </>
         ) : (
           <>
-            <Header as='h2' inverted content='Welcome to Reactivities' />
-            <Button as={Link} to='/login' size='huge' inverted>
+            <Button onClick={() => modalStore.openModal(<LoginForm />)} size='huge' inverted>
               Login!
+            </Button>
+            <Button onClick={() => modalStore.openModal(<h1>Register</h1>)} size='huge' inverted>
+              Register!
             </Button>
           </>
         )}
-        <Header as='h2' inverted content='Welcome to Reactivities' />
-        <Button as={Link} to='/login' size='huge' inverted>
-          Login!
-        </Button>
       </Container>
     </Segment>
   )
