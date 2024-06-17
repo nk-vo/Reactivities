@@ -29,7 +29,14 @@ export default class UserStore {
     router.navigate('/');
   }
 
-  setUser = (user: User) => {
-    this.user = user;
+  getUser = async () => {
+    try {
+      const user = await agent.Account.current();
+      store.commonStore.setToken(user.token);
+      runInAction(() => this.user = user);
+      router.navigate('/activities');
+    } catch (error) {
+      throw error;
+    }
   }
 }

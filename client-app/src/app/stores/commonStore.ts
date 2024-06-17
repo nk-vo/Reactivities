@@ -26,7 +26,7 @@ export default class CommonStore {
   }
 
   setToken(token: string | null) {
-    if (token) localStorage.setItem('jwt', token);
+    this.token = token;
   }
 
   setAppLoaded() {
