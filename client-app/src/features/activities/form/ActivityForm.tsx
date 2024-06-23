@@ -7,7 +7,7 @@ import { useStore } from '../../../app/stores/store';
 import { v4 as uuid } from 'uuid';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Activity, ActivityFormValues } from '../../../app/models/activity';
+import { ActivityFormValues } from '../../../app/models/activity';
 import MyDateInput from '../../../app/common/form/MyDateInput';
 import MySelectInput from '../../../app/common/form/MySelectInput';
 import MyTextAreaInput from '../../../app/common/form/MyTextArea';
@@ -17,7 +17,7 @@ import { categoryOptions } from '../../../app/common/options/categoryOptions';
 export default observer(function ActivityForm() {
     const { activityStore } = useStore();
     const { createActivity, updateActivity,
-        loading, loadActivity, loadingInitial } = activityStore;
+        loadActivity, loadingInitial } = activityStore;
     const { id } = useParams();
     const navigate = useNavigate();
 
