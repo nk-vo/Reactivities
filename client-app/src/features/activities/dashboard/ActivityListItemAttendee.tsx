@@ -1,5 +1,5 @@
 import { List, Image } from "semantic-ui-react";
-import { Profile } from "../../../app/models/Profile";
+import { Profile } from "../../../app/models/profile";
 import { Link } from "react-router-dom";
 
 interface Props {
