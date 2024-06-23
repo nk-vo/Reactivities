@@ -2,7 +2,6 @@ import { List, Image } from "semantic-ui-react";
 import { Profile } from "../../../app/models/Profile";
 import { Link } from "react-router-dom";
 
-
 interface Props {
   attendees: Profile[];
 }
