@@ -5,7 +5,6 @@ import { User, UserFormValues } from '../models/user';
 import { router } from '../router/Routes';
 import { store } from '../stores/store';
 import { Photo, Profile } from '../models/profile';
-import { set } from 'date-fns';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
