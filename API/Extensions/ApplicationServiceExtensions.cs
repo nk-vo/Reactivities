@@ -1,7 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Application.Activities;
 using Application.Core;
 using Application.Interfaces;
-using Application.Photos;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Photos;
