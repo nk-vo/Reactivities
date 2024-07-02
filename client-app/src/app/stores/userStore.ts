@@ -27,6 +27,15 @@ export default class UserStore {
         }
     }
 
+    getUser = async () => {
+        try {
+            const user = await agent.Account.current();
+            runInAction(() => this.user = user);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     register = async (creds: UserFormValues) => {
         try {
             const user = await agent.Account.register(creds);
@@ -39,19 +48,13 @@ export default class UserStore {
         }
     }
 
-
     logout = () => {
         store.commonStore.setToken(null);
         this.user = null;
         router.navigate('/');
     }
 
-    getUser = async () => {
-        try {
-            const user = await agent.Account.current();
-            runInAction(() => this.user = user);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    setImage = (image: string) => {
+        if (this.user) this.user.image = image;
+    }    
 }
