@@ -1,47 +1,23 @@
-import { Profile } from './profile';
+import { Profile } from "./profile";
 
-export interface IActivity {
+export interface Activity {
     id: string;
     title: string;
-    date: Date | null;
     description: string;
     category: string;
+    date: Date | null;
     city: string;
     venue: string;
-    hostUsername: string;
-    isCancelled: boolean;
+    hostUsername?: string;
+    isCancelled?: boolean;
     isGoing?: boolean;
-    isHost: boolean;
+    isHost?: boolean
+    attendees?: Profile[]
     host?: Profile;
-    attendees?: Profile[];
 }
 
-export class Activity implements IActivity {
-    constructor(init: ActivityFormValues) {
-        this.id = init.id!;
-        this.title = init.title;
-        this.date = init.date;
-        this.category = init.category;
-        this.description = init.description;
-        this.city = init.city;
-        this.venue = init.venue;
-    }
-
-    id: string;
-    title: string;
-    date: Date | null;
-    description: string;
-    category: string;
-    city: string;
-    venue: string;
-    hostUsername: string = '';
-    isCancelled: boolean = false;
-    isGoing?: boolean = false;
-    isHost: boolean = false;
-    host?: Profile;
-    attendees?: Profile[];
-}
-export class ActivityFormValues {
+export class ActivityFormValues
+  {
     id?: string = undefined;
     title: string = '';
     category: string = '';
@@ -50,16 +26,22 @@ export class ActivityFormValues {
     city: string = '';
     venue: string = '';
 
-    constructor(activity?: ActivityFormValues) {
-        if (activity && activity.date) {
-            this.id = activity.id;
-            this.title = activity.title;
-            this.category = activity.category;
-            this.description = activity.description;
-            this.date = activity.date;
-            this.venue = activity.venue;
-            this.city = activity.city;
-        }
-        Object.assign(this, activity);
+	  constructor(activity?: ActivityFormValues) {
+      if (activity) {
+        this.id = activity.id;
+        this.title = activity.title;
+        this.category = activity.category;
+        this.description = activity.description;
+        this.date = activity.date;
+        this.venue = activity.venue;
+        this.city = activity.city;
+      }
     }
-}
+
+  }
+
+  export class Activity implements Activity {
+    constructor(init?: ActivityFormValues) {
+      Object.assign(this, init);
+    }
+  }

@@ -24,16 +24,13 @@ interface Props {
 }
 
 export default observer(function ActivityDetailedHeader({ activity }: Props) {
-    const { activityStore: { updateAttendance, loading, cancelActivityToggle } } = useStore();
+    const { activityStore: { updateAttendeance, loading, cancelActivityToggle } } = useStore();
     return (
         <Segment.Group>
             <Segment basic attached='top' style={{ padding: '0' }}>
                 {activity.isCancelled &&
-                    <Label
-                        style={{ position: 'absolute', zIndex: 1000, left: -14, top: 20 }}
-                        ribbon color='red' content='Cancelled'
-                    />
-                }
+                    <Label style={{ position: 'absolute', zIndex: 1000, left: -14, top: 20 }}
+                        ribbon color='red' content='Cancelled' />}
                 <Image src={`/assets/categoryImages/${activity.category}.jpg`} fluid style={activityImageStyle} />
                 <Segment style={activityImageTextStyle} basic>
                     <Item.Group>
@@ -46,7 +43,7 @@ export default observer(function ActivityDetailedHeader({ activity }: Props) {
                                 />
                                 <p>{format(activity.date!, 'dd MMM yyyy')}</p>
                                 <p>
-                                    Hosted by <strong><Link to={`/profiles/${activity.host?.username}`}>{activity.host?.displayName}</Link></strong>
+                                    Hosted by <strong><Link to={`/profiles/${activity.hostUsername}`}>{activity.hostUsername}</Link></strong>
                                 </p>
                             </Item.Content>
                         </Item>
@@ -60,26 +57,27 @@ export default observer(function ActivityDetailedHeader({ activity }: Props) {
                             color={activity.isCancelled ? 'green' : 'red'}
                             floated='left'
                             basic
-                            content={activity.isCancelled ? 'Reactivate Event' : 'Cancel Event'}
+                            content={activity.isCancelled ? 'Re-activate activity' : 'Cancel Activity'}
                             onClick={cancelActivityToggle}
                             loading={loading}
                         />
                         <Button
                             as={Link}
-                            disabled={activity.isCancelled}
                             to={`/manage/${activity.id}`}
                             color='orange'
-                            floated='right'>
+                            floated='right'
+                            disabled={activity.isCancelled}
+                        >
                             Manage Event
                         </Button>
                     </>
+
                 ) : activity.isGoing ? (
-                    <Button loading={loading} onClick={updateAttendance} >Cancel attendance</Button>
+                    <Button onClick={updateAttendeance} 
+                        loading={loading}>Cancel attendance</Button>
                 ) : (
-                    <Button disabled={activity.isCancelled} loading={loading}
-                        onClick={updateAttendance} color='teal'>
-                        Join Activity
-                    </Button>
+                    <Button disabled={activity.isCancelled} onClick={updateAttendeance} 
+                        loading={loading} color='teal'>Join Activity</Button>
                 )}
             </Segment>
         </Segment.Group>

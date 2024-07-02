@@ -6,7 +6,7 @@ import { useStore } from "../../app/stores/store";
 import * as Yup from 'yup';
 import ValidationError from "../errors/ValidationError";
 
-export default observer(function RegisterForm() {
+export default observer(function RegsiterForm() {
     const { userStore } = useStore();
     return (
         <Formik

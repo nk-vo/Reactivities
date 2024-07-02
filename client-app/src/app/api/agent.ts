@@ -1,10 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { Activity, ActivityFormValues } from '../models/activity';
+import { Photo, Profile } from '../models/profile';
 import { User, UserFormValues } from '../models/user';
 import { router } from '../router/Routes';
 import { store } from '../stores/store';
-import { Photo, Profile } from '../models/profile';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -85,16 +85,15 @@ const Account = {
 
 const Profiles = {
     get: (username: string) => requests.get<Profile>(`/profiles/${username}`),
-    uploadPhoto: async (file: Blob) => {
+    uploadPhoto: (file: any) => {
         let formData = new FormData();
         formData.append('File', file);
-        const response = await axios.post<Photo>('/photos', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        });
-        return responseBody(response);
+        return axios.post<Photo>('photos', formData, {
+            headers: {'Content-Type': 'multipart/form-data'}
+        })
     },
-    setMainPhoto: (id: string) => requests.post<void>(`/photos/${id}/setMain`, {}),
-    deletePhoto: (id: string) => requests.del<void>(`/photos/${id}`),
+    setMainPhoto: (id: string) => axios.post(`/photos/${id}/setMain`, {}),
+    deletePhoto: (id: string) => axios.delete(`/photos/${id}`)
 }
 
 const agent = {
