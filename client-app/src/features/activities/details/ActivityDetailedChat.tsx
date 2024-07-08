@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { Segment, Header, Comment, Form, Button } from 'semantic-ui-react'
 import { useStore } from '../../../app/stores/store'
 import { Link } from 'react-router-dom';
+import { Formik, Field } from 'formik';
 
 interface Props {
     activityId: string;
@@ -45,7 +46,22 @@ export default observer(function ActivityDetailedChat({ activityId }: Props) {
                         </Comment>
 
                     ))}
-                    
+
+                    <Formik
+                        onSubmit={(values, { resetForm }) => commentStore.addComment(values).then(() => resetForm())}
+                        initialValues={{ body: '' }}
+                    >
+                        <Form>
+                            <Field name='body' placeholder='Add your comment' />
+                            <Button
+                                content='Add Reply'
+                                labelPosition='left'
+                                icon='edit'
+                                primary
+                            />
+                        </Form>
+                    </Formik>
+
                     <Form reply>
                         <Form.TextArea />
                         <Button
