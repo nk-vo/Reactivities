@@ -33,4 +33,4 @@ export default observer(function ActivityDetails() {
             </Grid.Column>
         </Grid>
     )
-})
+})                                                                                                                                                                                                                                                                                                                     
