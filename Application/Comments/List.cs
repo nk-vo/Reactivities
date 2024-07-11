@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.Core;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -24,8 +20,8 @@ namespace Application.Comments
             private readonly IMapper _mapper;
             public Handler(DataContext context, IMapper mapper)
             {
-                _context = context;
                 _mapper = mapper;
+                _context = context;
             }
 
             public async Task<Result<List<CommentDto>>> Handle(Query request, CancellationToken cancellationToken)

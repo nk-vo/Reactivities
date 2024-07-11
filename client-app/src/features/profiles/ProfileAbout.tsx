@@ -16,9 +16,8 @@ export default observer(function ProfileAbout() {
                     <Header
                         floated='left'
                         icon='user'
-                        content={`About ${profile?.displayName}`}
-                    />
-                    {isCurrentUser && (
+                        content={`About ${profile?.displayName}`} />
+                        {isCurrentUser && (
                         <Button
                             floated='right'
                             basic

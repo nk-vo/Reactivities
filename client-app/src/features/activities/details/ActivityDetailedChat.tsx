@@ -1,15 +1,17 @@
-import { observer } from 'mobx-react-lite'
-import { useEffect } from 'react'
-import { Segment, Header, Comment, Loader } from 'semantic-ui-react'
-import { useStore } from '../../../app/stores/store'
-import { Link } from 'react-router-dom';
 import { Formik, Form, Field, FieldProps } from 'formik';
+import { observer } from 'mobx-react-lite'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom';
+import { Segment, Header, Comment, Button, Loader } from 'semantic-ui-react'
+import MyTextArea from '../../../app/common/form/MyTextArea';
+import { useStore } from '../../../app/stores/store';
 import * as Yup from 'yup';
 import { formatDistanceToNow } from 'date-fns';
 
 interface Props {
     activityId: string;
 }
+
 export default observer(function ActivityDetailedChat({ activityId }: Props) {
     const { commentStore } = useStore();
 
@@ -20,7 +22,7 @@ export default observer(function ActivityDetailedChat({ activityId }: Props) {
         return () => {
             commentStore.clearComments();
         }
-    }, [commentStore, activityId])
+    }, [commentStore, activityId]);
 
     return (
         <>
@@ -40,8 +42,7 @@ export default observer(function ActivityDetailedChat({ activityId }: Props) {
                     initialValues={{ body: '' }}
                     validationSchema={Yup.object({
                         body: Yup.string().required()
-                    })
-                    }
+                    })}
                 >
                     {({ isSubmitting, isValid, handleSubmit }) => (
                         <Form className='ui form'>
@@ -53,7 +54,7 @@ export default observer(function ActivityDetailedChat({ activityId }: Props) {
                                             placeholder='Enter your comment (Enter to submit, SHIFT + Enter for new line)'
                                             rows={2}
                                             {...props.field}
-                                            onKeyDown={e => {
+                                            onKeyPress={e => {
                                                 if (e.key === 'Enter' && e.shiftKey) {
                                                     return;
                                                 }
@@ -71,7 +72,7 @@ export default observer(function ActivityDetailedChat({ activityId }: Props) {
                 </Formik>
                 <Comment.Group>
                     {commentStore.comments.map(comment => (
-                        <Comment>
+                        <Comment key={comment.id}>
                             <Comment.Avatar src={comment.image || '/assets/user.png'} />
                             <Comment.Content>
                                 <Comment.Author as={Link} to={`/profiles/${comment.username}`}>{comment.displayName}</Comment.Author>
@@ -81,8 +82,9 @@ export default observer(function ActivityDetailedChat({ activityId }: Props) {
                                 <Comment.Text style={{ whiteSpace: 'pre-wrap' }}>{comment.body}</Comment.Text>
                             </Comment.Content>
                         </Comment>
-
                     ))}
+
+
                 </Comment.Group>
             </Segment>
         </>
