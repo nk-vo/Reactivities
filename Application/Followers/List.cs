@@ -5,7 +5,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using System.Collections.Generic;
-using Application.Profiles;
 
 namespace Application.Followers
 {
