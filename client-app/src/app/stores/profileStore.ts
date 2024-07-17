@@ -116,7 +116,7 @@ export default class ProfileStore {
         this.loading = true;
         try {
             await agent.Profiles.updateFollowing(username);
-            
+            store.activityStore.updateAttendeeFollowing(username);
             runInAction(() => {
                 if (this.profile && this.profile.username !== store.userStore.user?.username && this.profile.username === username) {
                     following ? this.profile.followersCount++ : this.profile.followersCount--;
