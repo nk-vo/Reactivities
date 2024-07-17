@@ -110,5 +110,22 @@ export default class ProfileStore {
             runInAction(() => this.loading = false);
         }
     }
+
+    updateFollowing = async (username: string, following: boolean) => {
+        this.loading = true;
+        try {
+            await agent.Profiles.updateFollowing(username);
+            runInAction(() => {
+                if (this.profile && this.profile.username !== store.userStore.user?.username && this.profile.username === username) {
+                    following ? this.profile.followersCount++ : this.profile.followersCount--;
+                    this.profile.following = !this.profile.following;
+                }
+                this.loading = false;
+            })
+        } catch (error) {
+            toast.error('Problem updating following');
+            runInAction(() => this.loading = false);
+        }
+    }
 }
 
