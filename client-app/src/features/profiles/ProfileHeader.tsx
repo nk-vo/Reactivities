@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { Grid, Segment, Item, Header, Statistic, Divider } from "semantic-ui-react";
 import { Profile } from '../../app/models/profile';
+import FollowButton from './FollowButton';
 
 interface Props {
     profile: Profile
@@ -30,6 +31,7 @@ export default observer(function ProfileHeader({ profile }: Props) {
                         <Statistic label='Following' value={profile.followingCount} />
                     </Statistic.Group>
                     <Divider />
+                    <FollowButton profile={profile} />
                 </Grid.Column>
             </Grid>
         </Segment>
