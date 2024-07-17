@@ -31,23 +31,6 @@ export default observer(function ProfileHeader({ profile }: Props) {
                         <Statistic label='Following' value={profile.followingCount} />
                     </Statistic.Group>
                     <Divider />
-                    <Reveal animated='move'>
-                        <Reveal.Content visible style={{ width: '100%' }}>
-                            <Button
-                                fluid
-                                color='teal'
-                                content='Following'
-                            />
-                        </Reveal.Content>
-                        <Reveal.Content hidden>
-                            <Button
-                                fluid
-                                basic
-                                color={true ? 'red' : 'green'}
-                                content={true ? 'Unfollow' : 'Follow'}
-                            />
-                        </Reveal.Content>
-                    </Reveal>
                 </Grid.Column>
             </Grid>
         </Segment>
