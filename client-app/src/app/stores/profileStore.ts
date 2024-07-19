@@ -135,5 +135,19 @@ export default class ProfileStore {
             runInAction(() => this.loading = false);
         }
     }
+
+    loadFollowings = async (predicate: string) => {
+        this.loading = true;
+        try {
+            const followings = await agent.Profiles.listFollowings(this.profile!.username, predicate);
+            runInAction(() => {
+                this.followings = followings;
+                this.loading = false;
+            })
+        } catch (error) {
+            toast.error('Problem loading followings');
+            runInAction(() => this.loading = false);
+        }
+    }
 }
 
