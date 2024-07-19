@@ -10,6 +10,7 @@ export default class ProfileStore {
     uploading = false;
     loading = false;
     followings: Profile[] = [];
+    loadingFollowings = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -137,16 +138,16 @@ export default class ProfileStore {
     }
 
     loadFollowings = async (predicate: string) => {
-        this.loading = true;
+        this.loadingFollowings = true;
         try {
             const followings = await agent.Profiles.listFollowings(this.profile!.username, predicate);
             runInAction(() => {
                 this.followings = followings;
-                this.loading = false;
+                this.loadingFollowings = false;
             })
         } catch (error) {
             toast.error('Problem loading followings');
-            runInAction(() => this.loading = false);
+            runInAction(() => this.loadingFollowings = false);
         }
     }
 }
