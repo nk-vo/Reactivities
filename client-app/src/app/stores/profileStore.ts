@@ -11,19 +11,22 @@ export default class ProfileStore {
     loading = false;
     followings: Profile[] = [];
     loadingFollowings = false;
-    activeTab = 0;
+    activeTab: number = 0;
 
     constructor() {
         makeAutoObservable(this);
 
-        reaction(() => this.activeTab, activeTab => {
-            if (activeTab === 3 || activeTab === 4) {
-                const predicate = activeTab === 3 ? 'followers' : 'following';
-                this.loadFollowings(predicate);
-            } else {
-                this.followings = [];
+        reaction(
+            () => this.activeTab,
+            activeTab => {
+                if (activeTab === 3 || activeTab === 4) {
+                    const predicate = activeTab === 3 ? 'followers' : 'following';
+                    this.loadFollowings(predicate);
+                } else {
+                    this.followings = [];
+                }
             }
-        })
+        )
     }
 
     setActiveTab = (activeTab: any) => {
@@ -133,7 +136,9 @@ export default class ProfileStore {
             await agent.Profiles.updateFollowing(username);
             store.activityStore.updateAttendeeFollowing(username);
             runInAction(() => {
-                if (this.profile && this.profile.username !== store.userStore.user?.username && this.profile.username === username) {
+                if (this.profile 
+                        && this.profile.username !== store.userStore.user?.username 
+                        && this.profile.username === username) {
                     following ? this.profile.followersCount++ : this.profile.followersCount--;
                     this.profile.following = !this.profile.following;
                 }
@@ -142,14 +147,14 @@ export default class ProfileStore {
                 }
                 this.followings.forEach(profile => {
                     if (profile.username === username) {
-                        profile.following ? profile.followersCount-- : profile.followersCount++;
+                        profile.following ? profile.followersCount-- : profile.followersCount++
                         profile.following = !profile.following;
                     }
                 })
                 this.loading = false;
             })
         } catch (error) {
-            toast.error('Problem updating following');
+            console.log(error);
             runInAction(() => this.loading = false);
         }
     }
@@ -163,7 +168,7 @@ export default class ProfileStore {
                 this.loadingFollowings = false;
             })
         } catch (error) {
-            toast.error('Problem loading followings');
+            console.log(error);
             runInAction(() => this.loadingFollowings = false);
         }
     }
