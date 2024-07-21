@@ -6,11 +6,11 @@ export interface Pagination {
 }
 
 export class PaginatedResult<T> {
-  date: T;
+  data: T;
   pagination: Pagination;
 
   constructor(data: T, pagination: Pagination) {
-    this.date = data;
+    this.data = data;
     this.pagination = pagination;
   }
 }
