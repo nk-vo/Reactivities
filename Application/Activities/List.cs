@@ -14,11 +14,6 @@ namespace Application.Activities
         public class Query : IRequest<Result<PagedList<ActivityDto>>>
         {
             public PagingParams Params { get; set; }
-
-            public Query(PagingParams Params)
-            {
-                this.Params = Params;
-            }
         }
 
         public class Handler : IRequestHandler<Query, Result<PagedList<ActivityDto>>>
