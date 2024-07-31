@@ -9,11 +9,10 @@ namespace API.Controllers
     public class ActivitiesController : BaseApiController
     {
         [HttpGet]
-        public async Task<IActionResult> GetActivities([FromQuery] PagingParams param)
+        public async Task<IActionResult> GetActivities([FromQuery] ActivityParams param)
         {
             return HandlePagedResult(await Mediator.Send(new List.Query { Params = param }));
         }
-
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetActivity(Guid id)
@@ -45,7 +44,7 @@ namespace API.Controllers
         [HttpPost("{id}/attend")]
         public async Task<IActionResult> Attend(Guid id)
         {
-            return HandleResult(await Mediator.Send(new UpdateAttendance.Command{Id = id}));
+            return HandleResult(await Mediator.Send(new UpdateAttendance.Command { Id = id }));
         }
     }
 }
