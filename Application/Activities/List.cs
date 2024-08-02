@@ -2,9 +2,7 @@ using Application.Core;
 using Application.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Domain;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Activities
@@ -21,7 +19,6 @@ namespace Application.Activities
             private readonly DataContext _context;
             private readonly IMapper _mapper;
             private readonly IUserAccessor _userAccessor;
-
             public Handler(DataContext context, IMapper mapper, IUserAccessor userAccessor)
             {
                 _userAccessor = userAccessor;
@@ -32,7 +29,7 @@ namespace Application.Activities
             public async Task<Result<PagedList<ActivityDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var query = _context.Activities
-                    .Where(d => d.Date >= request.Params.StartDate)
+                    .Where(x => x.Date >= request.Params.StartDate)
                     .OrderBy(d => d.Date)
                     .ProjectTo<ActivityDto>(_mapper.ConfigurationProvider, new { currentUsername = _userAccessor.GetUsername() })
                     .AsQueryable();
@@ -47,9 +44,9 @@ namespace Application.Activities
                     query = query.Where(x => x.HostUsername == _userAccessor.GetUsername());
                 }
 
-                return Result<PagedList<ActivityDto>>.Success(
-                    await PagedList<ActivityDto>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize)
-                );
+                return Result<PagedList<ActivityDto>>
+                    .Success(await PagedList<ActivityDto>.CreateAsync(query,
+                        request.Params.PageNumber, request.Params.PageSize));
             }
         }
     }

@@ -18,7 +18,7 @@ export default class ActivityStore {
     constructor() {
         makeAutoObservable(this);
 
-        reaction (
+        reaction(
             () => this.predicate.keys(),
             () => {
                 this.pagingParams = new PagingParams();
@@ -52,7 +52,7 @@ export default class ActivityStore {
                 this.predicate.set('isHost', true);
                 break;
             case 'startDate':
-                resetPredicate();
+                this.predicate.delete('startDate');
                 this.predicate.set('startDate', value);
                 break;
         }
@@ -61,20 +61,15 @@ export default class ActivityStore {
     get axiosParams() {
         const params = new URLSearchParams();
         params.append('pageNumber', this.pagingParams.pageNumber.toString());
-        params.append('pageSize', this.pagingParams.pageSize.toString());
+        params.append('pageSize', this.pagingParams.pageSize.toString())
         this.predicate.forEach((value, key) => {
-            if (key === 'StartDate') {
-                params.append(key, (value as Date).toISOString());
+            if (key === 'startDate') {
+                params.append(key, (value as Date).toISOString())
             } else {
                 params.append(key, value);
             }
         })
         return params;
-    }
-
-    get activitiesByDate() {
-        return Array.from(this.activityRegistry.values()).sort((a, b) =>
-            a.date!.getTime() - b.date!.getTime());
     }
 
     get groupedActivities() {
@@ -87,11 +82,16 @@ export default class ActivityStore {
         )
     }
 
+    get activitiesByDate() {
+        return Array.from(this.activityRegistry.values()).sort((a, b) =>
+            a.date!.getTime() - b.date!.getTime());
+    }
+
     loadActivities = async () => {
-        this.setLoadingInitial(true);
+        this.loadingInitial = true;
         try {
             const result = await agent.Activities.list(this.axiosParams);
-            result.data.forEach((activity) => {
+            result.data.forEach(activity => {
                 this.setActivity(activity);
             })
             this.setPagination(result.pagination);

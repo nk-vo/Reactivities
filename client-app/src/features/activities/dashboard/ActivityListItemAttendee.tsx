@@ -1,3 +1,4 @@
+import React from 'react';
 import { Image, List, Popup } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import { Profile } from '../../../app/models/profile';
