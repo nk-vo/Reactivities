@@ -1,15 +1,17 @@
-import { Menu, Header } from 'semantic-ui-react';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
 import Calendar from 'react-calendar';
+import { Header, Menu } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 
-export default function ActivityFilters() {
-    const { activityStore: { predicate, setPredicate } } = useStore();
+export default observer(function ActivityFilters() {
+    const {activityStore: {predicate, setPredicate}} = useStore();
     return (
         <>
             <Menu vertical size='large' style={{ width: '100%', marginTop: 25 }}>
                 <Header icon='filter' attached color='teal' content='Filters' />
                 <Menu.Item
-                    content='All Activities'
+                    content='All Activites'
                     active={predicate.has('all')}
                     onClick={() => setPredicate('all', 'true')}
                 />
@@ -24,11 +26,10 @@ export default function ActivityFilters() {
                     onClick={() => setPredicate('isHost', 'true')}
                 />
             </Menu>
-            <Header icon='calendar' attached color='teal' content='Select date' />
+            <Header />
             <Calendar
-                onChange={(date: Date) => setPredicate('startDate', date as Date)}
-                value={predicate.get('startDate') || new Date()}
+                onChange={(date: any) => setPredicate('startDate', date as Date)}
             />
         </>
-    );
-}
+    )
+})

@@ -475,6 +475,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-# Environment variables file
-.env
+API/appsettings.json
