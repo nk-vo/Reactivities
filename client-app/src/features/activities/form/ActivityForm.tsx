@@ -66,7 +66,7 @@ export default observer(function ActivityForm() {
 
                         <Header content='Location Details' sub color='teal' />
                         <MyTextInput name='venue' placeholder='Venue' />
-                        <MyTextInput name='city' placeholder='city' />
+                        <MyTextInput name='city' placeholder='City' />
                         <Button 
                             disabled={isSubmitting || !dirty || !isValid}
                             loading={isSubmitting} 

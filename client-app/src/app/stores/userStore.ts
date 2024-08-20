@@ -39,7 +39,6 @@ export default class UserStore {
         }
     }
 
-
     logout = () => {
         store.commonStore.setToken(null);
         this.user = null;

@@ -15,7 +15,7 @@ export default observer(function ProfilePhotos({ profile }: Props) {
     const [addPhotoMode, setAddPhotoMode] = useState(false);
     const [target, setTarget] = useState('');
 
-    function handlePhotoUpload(file: any) {
+    function handlePhotoUpload(file: Blob) {
         uploadPhoto(file).then(() => setAddPhotoMode(false));
     }
 
@@ -31,7 +31,7 @@ export default observer(function ProfilePhotos({ profile }: Props) {
 
 
     return (
-        <Tab.Pane>
+        <Tab>
             <Grid>
                 <Grid.Column width='16'>
                     <Header floated='left' icon='image' content='Photos' />
@@ -76,6 +76,6 @@ export default observer(function ProfilePhotos({ profile }: Props) {
                     )}
                 </Grid.Column>
             </Grid>
-        </Tab.Pane>
+        </Tab>
     )
 })

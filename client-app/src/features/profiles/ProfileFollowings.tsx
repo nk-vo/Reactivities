@@ -8,7 +8,7 @@ export default observer(function ProfileFollowings() {
     const {profile, followings, loadingFollowings, activeTab} = profileStore;
 
     return (
-        <Tab.Pane loading={loadingFollowings}>
+        <Tab loading={loadingFollowings}>
             <Grid>
                 <Grid.Column width='16'>
                     <Header
@@ -27,6 +27,6 @@ export default observer(function ProfileFollowings() {
                     </Card.Group>
                 </Grid.Column>
             </Grid>
-        </Tab.Pane>
+        </Tab>
     )
 })

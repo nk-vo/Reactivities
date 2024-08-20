@@ -41,7 +41,7 @@ app.UseStaticFiles();
 
 app.MapControllers();
 app.MapHub<ChatHub>("/chat");
-app.MapFallbackToController("Index", "Fallback");
+app.MapFallbackToController("Index", "FallBack");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
