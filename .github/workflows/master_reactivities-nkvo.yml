@@ -38,6 +38,9 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o ./bin/Publish
 
+      - name: List publish directory
+        run: ls -la ./bin/Publish
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -58,7 +61,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-      
+          path: ./bin/Publish
+          
       - name: Login to Azure
         uses: azure/login@v2
         with:
