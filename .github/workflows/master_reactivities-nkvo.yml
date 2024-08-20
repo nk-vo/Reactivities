@@ -36,13 +36,13 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o Publish
+        run: dotnet publish -c Release -o ./bin/Publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ./Publish
+          path: ./bin/Publish
 
   deploy:
     runs-on: windows-latest
@@ -72,5 +72,5 @@ jobs:
         with:
           app-name: 'reactivities-nkvo'
           slot-name: 'Production'
-          package: ./Publish
+          package: ./bin/Publish
           
