@@ -43,7 +43,7 @@ app.MapControllers();
 app.MapHub<ChatHub>("/chat");
 app.MapFallbackToController("Index", "FallBack");
 
-app.UseDeveloperExceptionPage();
+// app.UseDeveloperExceptionPage();
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
